@@ -1,33 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { useQuery, gql } from '@apollo/client';
+
+const GET_ALL_BLOGS = gql`
+query {
+  allPosts {
+    id
+    title
+    subtitle
+    body
+    metaDescription
+    dateCreated
+    dateModified
+    publishDate
+    published
+    slug
+  }
+}
+`;
+
+
+function DisplayBlogs() {
+  const { loading, error, data } = useQuery(GET_ALL_BLOGS);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>
+  return data.allPosts.map((post) => (
+    <div key={post.id}><h1>{post.title}</h1> <h4>{post.subtitle}</h4> <p>{post.body}</p></div>
+  ))
+}
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>List of blogs available</h1>
+      {<DisplayBlogs />}
     </>
   )
 }
