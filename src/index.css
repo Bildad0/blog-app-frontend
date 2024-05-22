@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face{
+    font-family: Prata;
+    src: url('./assets/fonts/Prata.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Rhodium;
+    src: url('./assets/fonts/Rhodium\ Libre.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    font-family: 'Prata', sans-serif;
+}
