@@ -1,4 +1,5 @@
 import { useQuery, gql } from '@apollo/client';
+import TopBlogs from './components/blog/topblogs';
 
 const GET_ALL_BLOGS = gql`
 query {
@@ -33,15 +34,12 @@ function DisplayBlogs() {
 }
 
 
-
-
-
 const HomePage = () => {
   return (
     <div className='bg-gray-100 flex-row  items-center justify-center min-h-screen'>
 
       {/* hero section */}
-      <section className="bg-blue-600 text-white py-20">
+      <section className="bg-orange-600 text-white py-20">
         <div className="container mx-auto px-6 text-center">
           <h1 className="text-4xl font-bold">Welcome to My Blog</h1>
           <p className="mt-4 text-lg">Stay updated with the latest posts</p>
@@ -59,9 +57,9 @@ const HomePage = () => {
             </div>
           </section>
         </div>
-        <div>
-          <h1>Latest</h1>
-          <div></div>
+        <div className='flex flex-col bg-gray-200'>
+          <h1>Top Stories</h1>
+          <div> <ul><TopBlogs /></ul></div>
         </div>
       </div>
 

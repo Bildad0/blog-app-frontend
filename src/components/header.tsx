@@ -8,8 +8,8 @@ function Header() {
                     <div className="text-lg font-bold text-gray-700"><img src={Logo} alt='Logo' loading='lazy' width={250}/></div>
                     <nav className="flex space-x-4">
                         <a href="/" className="text-gray-700 hover:text-gray-900">Home</a>
-                        <a href="#" className="text-gray-700 hover:text-gray-900">About</a>
-                        <a href="#" className="text-gray-700 hover:text-gray-900">Contact</a>
+                        <a href="/about" className="text-gray-700 hover:text-gray-900">About</a>
+                        <a href="/contact" className="text-gray-700 hover:text-gray-900">Contact</a>
                     </nav>
                 </div>
             </div>

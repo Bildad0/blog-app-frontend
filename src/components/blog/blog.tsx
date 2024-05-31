@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 
 const GET_POST = gql`
-  query GetPost($id: Int!) {
+  query allPosts($id: Int) {
     post(id: $id) {
       id
       title
