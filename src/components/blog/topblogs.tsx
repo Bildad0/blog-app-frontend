@@ -1,49 +1,34 @@
-import { useEffect, useState } from 'react';
-import { link } from '../../client';
+import { gql, useQuery } from '@apollo/client';
 
-const GET_TOP_BLOGS = `{
-  allPosts {
-    id
-    title
-    author {
-      user {
-        username
+const GET_TOP_BLOGS = gql`
+  query {
+    allPosts {
+      id
+      title
+      author {
+        user {
+          username
+          lastLogin
+        }
       }
-    }
-    tags {
-      name
+      tags {
+        name
+      }
     }
   }
-}
 `;
 
-const options = {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({ query: GET_TOP_BLOGS })
-};
 
+function TopBlogsList() {
+  const { loading, error, data } = useQuery(GET_TOP_BLOGS);
+  if (loading) return <p>Loading...</p>
+  if (error) return <p>{error.message}</p>
 
-const TopBlogsList = () => {
-  const [recent, setRecent] = useState([]);
-
-  useEffect(() => {
-    fetch(link, options).then((res) => {
-      if (res.status == 200) {
-        const data = res.body;
-        console.log("latest blog:", data);
-      }
-
-    }).catch(error => { return error.message });
-  }, [recent, setRecent])
-
-
-  return recent.map((blog) => {
+  return data.allPosts.map((blog) => {
     return <li key={blog.id}>
       <h1>{blog.title}</h1>
-      <p>{blog.author.username}</p>
+      <p>{blog.author.user.username}</p>
+      <h1>{blog.author.user.lastLogin}</h1>
       <h4>{blog.tags.name}</h4>
     </li>
   })
