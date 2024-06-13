@@ -29,7 +29,9 @@ function TopBlogsList() {
       <h1>{blog.title}</h1>
       <p>{blog.author.user.username}</p>
       <h1>{blog.author.user.lastLogin}</h1>
-      <h4>{blog.tags.name}</h4>
+      <div className='flex flex-row gap-3'>{...blog.tags.map((tag)=>{
+        return(<h4 className='text-lg font-italics'>{tag.name}</h4>)
+      })}</div>
     </li>
   })
 }
