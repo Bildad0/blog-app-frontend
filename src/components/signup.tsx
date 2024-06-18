@@ -1,27 +1,24 @@
 import { gql, useQuery } from "@apollo/client"
 import { useState } from "react";
 
-const CREATE_USER = gql`
-mutation CreateUser($email: String!, $username: String!, $password: String!, ) {
-  createUser(email:$email, username: $username, password: $password ) {
-    user {
-      id
-      username
-      email
-    }
-  }
-}
-`;
+
 function Register() {
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-
-
-  function SubmitData(e) {
-    e.preventDefault()
-    console.log("user data: ", email, username, password);
+  const CREATE_USER = gql`
+  mutation CreateUser($email: String!, $username: String!, $password: String!, ) {
+    createUser(email:$email, username: $username, password: $password ) {
+      user {
+        id
+        username
+        email
+      }
+    }
+  }
+  `;
+  function SubmitData() {
     const { loading, error, data } = useQuery(CREATE_USER, {
       variables: {
         email,
@@ -29,11 +26,12 @@ function Register() {
         password
       }
     })
+    console.log("user data: ", data);
     if (!email) return <div>Email cannot be empty</div>
     if (!password) return <div>Password cannot be empty</div>
     if (!username) return <div>Username c annot be empty</div>
     if (loading) return <div>Loading...</div>
-    if (error) return <div>{error.message}</div>
+    if (error) return console.log(error.message)
     return data;
   }
 
@@ -41,9 +39,9 @@ function Register() {
 
   return (
     <div className="min-h-screen bg-gray-300 flex flex-row justify-between sr-only sm:not-sr-only ">
-      <div className="bg-gradient-to-r from-cyan-500 to-blue-500 min-w-[50%]">
-        <form onSubmit={SubmitData} className="m-8 flex flex-col justify-center gap-4">
-          <label htmlFor="email">Email</label>
+      <div className="bg-gradient-to-r from-cyan-500 to-blue-500 min-w-[50%] overscroll-contain justify-items-center">
+        <form onSubmit={SubmitData} className="m-8 flex flex-col gap-4 max-w-[40%] bg-white p-3 rounded-md m-[20%]">
+          <label htmlFor="email">Email:</label>
           <input
             type="email"
             id="email"
@@ -55,7 +53,7 @@ function Register() {
             }}>
 
           </input>
-          <label htmlFor="username">username</label>
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
             id="username"
@@ -68,7 +66,7 @@ function Register() {
 
           </input>
 
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Password:</label>
           <input
             type="password"
             id="password"
@@ -83,7 +81,7 @@ function Register() {
             <input type="radio" name="radio" id="radio" className="active:bg-red p-2"></input>
             <label htmlFor="radio">Get news update whenever they are posted</label>
           </div>
-          <button type="submit" className="bg-white max-w-[20%] rounded-md p-4">Sign up</button>
+          <button type="submit" className="bg- max-w-[50%] rounded-md p-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white">Sign up</button>
         </form>
       </div>
 
