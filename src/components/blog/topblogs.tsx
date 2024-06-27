@@ -25,13 +25,14 @@ function TopBlogsList() {
   if (error) return <p>{error.message}</p>
 
   return data.allPosts.map((blog) => {
-    return <li key={blog.id}>
-      <h1>{blog.title}</h1>
-      <p>{blog.author.user.username}</p>
-      <h1>{blog.author.user.lastLogin}</h1>
+    return <li key={blog.id} className='list-none m-2'>
+      <h1 className='bg-white rounded-md p-2 '>{blog.title}</h1>
+      <p className='text-blue-900 m-2 text-xl font-bold '>{blog.author.user.username}</p>
+      <h1 className=''>{blog.author.user.lastLogin}</h1>
       <div className='flex flex-row gap-3'>{...blog.tags.map((tag)=>{
-        return(<h4 className='text-lg font-italics'>{tag.name}</h4>)
-      })}</div>
+        return(<h4 className='text-lg'>{tag.name}</h4>)
+      })}
+      </div>
     </li>
   })
 }

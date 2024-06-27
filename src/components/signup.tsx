@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client"
+import { gql, useMutation } from "@apollo/client"
 import { useState } from "react";
 
 
@@ -8,7 +8,7 @@ function Register() {
   const [password, setPassword] = useState("")
 
   const CREATE_USER = gql`
-  mutation CreateUser($email: String!, $username: String!, $password: String!, ) {
+  mutation Mutation($email: String!, $username: String!, $password: String!, ) {
     createUser(email:$email, username: $username, password: $password ) {
       user {
         id
@@ -18,21 +18,23 @@ function Register() {
     }
   }
   `;
-  function SubmitData() {
-    const { loading, error, data } = useQuery(CREATE_USER, {
-      variables: {
-        email,
-        username,
-        password
-      }
-    })
-    console.log("user data: ", data);
+  const [submitRegister] = useMutation(CREATE_USER)
+
+  async function SubmitData() {
     if (!email) return <div>Email cannot be empty</div>
     if (!password) return <div>Password cannot be empty</div>
-    if (!username) return <div>Username c annot be empty</div>
-    if (loading) return <div>Loading...</div>
-    if (error) return console.log(error.message)
-    return data;
+    if (!username) return <div>Username cannot be empty</div>
+    const response = await submitRegister({
+      variables: {
+        username,
+        password,
+        email
+      }
+    })
+    console.log("user data: ", response.data);
+
+    if (response.errors) return console.log(response.errors)
+    return response.data;
   }
 
 
