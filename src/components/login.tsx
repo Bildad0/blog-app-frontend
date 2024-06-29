@@ -1,5 +1,6 @@
 import { gql, useMutation } from "@apollo/client"
 import { useState } from "react"
+import { useNavigate} from "react-router-dom"
 
 function Login() {
     const [username, setUsername] = useState("")
@@ -7,7 +8,7 @@ function Login() {
 
 
     const LOGIN_MUTATION = gql`
-        mutation TokenAuth($password:String!, $username:String!) {
+        mutation TokenAuth($password:String, $username:String) {
             tokenAuth(password:$password, username: $username) {
                     token
                     user {
@@ -29,6 +30,8 @@ function Login() {
     const [submitLogin] = useMutation(LOGIN_MUTATION);
 
     async function SubmitData() {
+
+        const navigate = useNavigate();
         const response = await submitLogin({
             variables:
             {
@@ -36,11 +39,15 @@ function Login() {
                 password: password
             }
         });
-        if (response.errors) {
-            console.log(response.errors)
+     
+
+        if(response.errors){
+            navigate("/")
+            return null
         }
 
-        console.log(response.data);
+        localStorage.setItem('token', response.data.token)
+        return navigate("/") 
     }
 
     return (
@@ -68,7 +75,7 @@ function Login() {
                     required
                     onChange={(e) => {
                         setPassword(e.target.value)
-                    }}> -
+                    }}>
                 </input>
                 <button type="submit" className="bg- max-w-[50%] rounded-md p-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white">Login</button>
             </form>
