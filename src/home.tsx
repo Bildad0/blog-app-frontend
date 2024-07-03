@@ -3,6 +3,8 @@ import DisplayBlogs from './components/blog/all_blogs';
 import BlogCategories from './components/categories';
 
 const HomePage = () => {
+
+  
   return (
     <div className='bg-gray-100 flex-row  items-center justify-center min-h-screen sr-only sm:not-sr-only'>
 

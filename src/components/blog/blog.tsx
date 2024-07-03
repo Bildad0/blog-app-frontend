@@ -2,15 +2,13 @@ import { useParams } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 
 const GET_POST = gql`
-query GetPostById($id:ID) {
+query MyQuery($id: Int = 2) {
   postById(id: $id) {
     body
-    imageUrl
-    slug
     dateCreated
     dateModified
+    published
     publishDate
-    metaDescription
     subtitle
   }
 }
@@ -30,10 +28,10 @@ const GET_RELATED_POSTS = gql`
 const PostDetail = () => {
   const { id } = useParams();
   console.log("post Id:", id);
-  const { loading, error, data } = useQuery(GET_POST, { variables: { id } });
+  const { loading, error, data } = useQuery(GET_POST, { variables: { id: parseInt(id || "") } });
 
   console.log("post details data:", data);
-  const post = data;
+  const post = data.postById;
   const { loading: relatedLoading, error: relatedError, data: relatedData } = useQuery(GET_RELATED_POSTS, { variables: { metaDescription: post.metaDescription } });
 
   if (loading) return <p>Loading...</p>;
@@ -49,7 +47,7 @@ const PostDetail = () => {
       <div dangerouslySetInnerHTML={{ __html: post.metaDescription }} className="prose mb-8"></div>
       <div className="text-gray-700" dangerouslySetInnerHTML={{ __html: post.body }} />
       <h2 className="text-2xl font-bold mb-4">Related Posts</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {relatedData.relatedPosts.map(relatedPost => (
           <div key={relatedPost.id} className="bg-white rounded-lg shadow-md overflow-hidden">
             {relatedPost.imageUrl && <img src={relatedPost.imageUrl} alt={relatedPost.title} className="w-full h-48 object-cover" />}
@@ -59,7 +57,7 @@ const PostDetail = () => {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

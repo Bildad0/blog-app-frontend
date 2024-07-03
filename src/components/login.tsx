@@ -1,6 +1,6 @@
 import { gql, useMutation } from "@apollo/client"
 import { useState } from "react"
-import { useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 function Login() {
     const [username, setUsername] = useState("")
@@ -24,7 +24,6 @@ function Login() {
                     }
                 }
             }    
-        }
     `;
 
     const [submitLogin] = useMutation(LOGIN_MUTATION);
@@ -39,15 +38,15 @@ function Login() {
                 password: password
             }
         });
-     
 
-        if(response.errors){
+
+        if (response.errors) {
             navigate("/")
-            return null
+            return response.errors
         }
 
         localStorage.setItem('token', response.data.token)
-        return navigate("/") 
+        navigate("/")
     }
 
     return (
@@ -77,10 +76,14 @@ function Login() {
                         setPassword(e.target.value)
                     }}>
                 </input>
-                <button type="submit" className="bg- max-w-[50%] rounded-md p-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white">Login</button>
+                <button
+                    type="submit"
+                    className="bg- max-w-[50%] rounded-md p-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white"
+                >Login
+                </button>
             </form>
         </div>
     )
 }
 
-export default Login
+export default Login 

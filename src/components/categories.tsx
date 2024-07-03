@@ -18,7 +18,7 @@ function Tags() {
 
     return data.allPosts.map((category) => {
         return <li className='flex flex-row gap-3 list-none m-2 ' key={category.tags.id} >{...category.tags.map((tag) => {
-            return <a href={`/categories/?id=${tag.id}`} className="block hover:text-blue-600 hover:bg-white p-2 rounded-full bg-gray-300 text-xl text-bold text-blue-900 ">{tag.name}</a>
+            return <a href={`/categories/?id=${tag.id}`} className="block hover:text-blue-600 hover:bg-white p-2 rounded-full bg-gray-300 text-xl text-bold text-blue-900 " key={tag.id}>{tag.name}</a>
         })}</li>
 
     })
