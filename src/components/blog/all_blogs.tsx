@@ -1,21 +1,7 @@
 
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { GET_ALL_BLOGS } from '../../queries';
 
-const GET_ALL_BLOGS = gql`
-query {
-  allPosts {
-    id
-    title
-    subtitle
-    imageUrl
-    metaDescription
-    dateCreated
-    dateModified
-    publishDate
-    published
-  }
-}
-`;
 
 function DisplayBlogs() {
   const { loading, error, data } = useQuery(GET_ALL_BLOGS);

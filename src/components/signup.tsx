@@ -1,5 +1,6 @@
-import { gql, useMutation } from "@apollo/client"
+import { useMutation } from "@apollo/client"
 import { useState } from "react";
+import { CREATE_USER } from "../mutations";
 
 
 function Register() {
@@ -7,17 +8,7 @@ function Register() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const CREATE_USER = gql`
-  mutation Mutation($email: String!, $username: String!, $password: String!, ) {
-    createUser(email:$email, username: $username, password: $password ) {
-      user {
-        id
-        username
-        email
-      }
-    }
-  }
-  `;
+
   const [submitRegister] = useMutation(CREATE_USER)
 
   async function SubmitData() {

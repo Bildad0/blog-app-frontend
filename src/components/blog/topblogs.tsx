@@ -1,23 +1,8 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { formatedDate } from '../../constants';
+import { GET_TOP_BLOGS } from '../../queries';
 
-const GET_TOP_BLOGS = gql`
-  query {
-    allPosts {
-      id
-      title
-      publishDate
-      author {
-        user {
-          username
-        }
-      }
-      tags {
-        name
-      }
-    }
-  }
-`;
+
 
 
 function TopBlogsList() {

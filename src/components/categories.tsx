@@ -1,25 +1,17 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { GET_BLOG_CATEGORIES } from '../queries';
 
-const GET_BLOG_CATEGORIES = gql`
- query{
-    allPosts {
-        tags{
-            id
-            name
-        }
-    }
-}
-`;
+
 
 function Tags() {
     const { loading, error, data } = useQuery(GET_BLOG_CATEGORIES);
     if (loading) return <p> Loading...</p>
     if (error) return <p>{error.message}</p>
 
-    return data.allPosts.map((category) => {
-        return <li className='flex flex-row gap-3 list-none m-2 ' key={category.tags.id} >{...category.tags.map((tag) => {
-            return <a href={`/categories/?id=${tag.id}`} className="block hover:text-blue-600 hover:bg-white p-2 rounded-full bg-gray-300 text-xl text-bold text-blue-900 " key={tag.id}>{tag.name}</a>
-        })}</li>
+    return data.allTags.map((category) => {
+        return <li className='flex flex-row gap-3 list-none m-2 ' key={category.id} >
+            <a href={`/categories/?id=${category.id}`} className="block hover:text-blue-600 hover:bg-white p-2 rounded-full bg-gray-300 text-xl text-bold text-blue-900 ">{category.id}, {category.name}</a>
+        </li>
 
     })
 }

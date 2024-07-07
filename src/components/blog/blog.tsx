@@ -1,29 +1,8 @@
 import { useParams } from 'react-router-dom';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { GET_RELATED_POSTS } from '../../mutations';
+import { GET_POST } from '../../queries';
 
-const GET_POST = gql`
-query MyQuery($id: Int = 2) {
-  postById(id: $id) {
-    body
-    dateCreated
-    dateModified
-    published
-    publishDate
-    subtitle
-  }
-}
-`;
-
-const GET_RELATED_POSTS = gql`
-  query GetRelatedPosts($metaDescription: String!) {
-    relatedPosts(metaDescription: $metaDescription) {
-      id
-      title
-      slug
-      imageUrl
-    }
-  }
-`;
 
 const PostDetail = () => {
   const { id } = useParams();

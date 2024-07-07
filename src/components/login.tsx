@@ -1,32 +1,15 @@
-import { gql, useMutation } from "@apollo/client"
+import { useMutation } from "@apollo/client"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { LOGIN } from "../mutations"
 
 function Login() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
 
-    const LOGIN_MUTATION = gql`
-        mutation TokenAuth($password:String, $username:String) {
-            tokenAuth(password:$password, username: $username) {
-                    token
-                    user {
-                        dateJoined
-                        firstName
-                        id
-                        lastLogin
-                        profile {
-                            bio
-                            email
-                            id
-                        }
-                    }
-                }
-            }    
-    `;
 
-    const [submitLogin] = useMutation(LOGIN_MUTATION);
+    const [submitLogin] = useMutation(LOGIN);
 
     async function SubmitData() {
 
