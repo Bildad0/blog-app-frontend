@@ -8,7 +8,9 @@ import Footer from './components/footer';
 import Login from './components/login';
 import Register from './components/signup';
 
+
 function App() {
+
   return (
     <Router>
       <Header />  
@@ -22,6 +24,7 @@ function App() {
       <Footer />
     </Router>
   )
+  
 }
 
 export default App

@@ -1,5 +1,33 @@
 import { gql } from "@apollo/client";
 
+export const ME = gql`
+ query {
+  me {
+    isStaff
+    isActive
+    lastLogin
+    profile {
+      email
+      username
+      website
+      bio
+      postSet {
+        body
+        dateCreated
+        dateModified
+        publishDate
+        published
+        title
+        subtitle
+        tags {
+          name
+        }
+      }
+    }
+  }
+ }
+`
+
 export const GET_POST = gql`
 query MyQuery($id: Int!) {
   postById(id: $id) {

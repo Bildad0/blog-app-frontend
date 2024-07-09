@@ -23,13 +23,13 @@ function Login() {
         });
 
 
-        if (response.errors) {
-            navigate("/")
-            return response.errors
+        if (!response.errors) {
+            localStorage.setItem('token', response.data.token)
+            return navigate("/", {state:{response}})
+           
         }
 
-        localStorage.setItem('token', response.data.token)
-        navigate("/")
+        return navigate("/login")
     }
 
     return (

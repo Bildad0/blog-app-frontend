@@ -3,7 +3,7 @@ import { gql } from "@apollo/client";
 
 
 export const GET_RELATED_POSTS = gql`
-query GetRelatedPosts($metaDescription: String!) {
+query RelatedPosts($metaDescription: String!) {
   relatedPosts(metaDescription: $metaDescription) {
     id
     title
@@ -15,7 +15,7 @@ query GetRelatedPosts($metaDescription: String!) {
 
 
 export const CREATE_USER = gql`
-mutation Mutation($email: String!, $username: String!, $password: String!, ) {
+mutation CreateUser($email: String!, $username: String!, $password: String!, ) {
   createUser(email:$email, username: $username, password: $password ) {
     user {
       id
