@@ -28,20 +28,39 @@ mutation CreateUser($email: String!, $username: String!, $password: String!, ) {
 
 
 export const LOGIN = gql`
-mutation TokenAuth($password:String!, $username:String!) {
-    tokenAuth(password:$password, username: $username) {
-            token
-            user {
-                dateJoined
-                firstName
-                id
-                lastLogin
-                profile {
-                    bio
-                    email
-                    id
-                }
-            }
+mutation TokenAuth($password: String!, $username: String!) {
+  tokenAuth(password: $password, username: $username) {
+    user {
+      email
+      lastLogin
+      username
+      isStaff
+      isSuperuser
+      profile {
+        bio
+        website
+        postSet {
+          dateCreated
+          publishDate
+          dateModified
+          title
+          subtitle
+          tags {
+            name
+          }
+          published
         }
-    }    
+      }
+    }
+    token
+  }
+}   
+`;
+
+export const VERIFY_TOKEN = gql`
+mutation TokenAuth($token: String) {
+  verifyToken(token: $token) {
+    payload
+  }
+}
 `;

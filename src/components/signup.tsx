@@ -76,10 +76,18 @@ function Register() {
           </div>
           <button type="submit" className="bg- max-w-[50%] rounded-md p-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white">Sign up</button>
         </form>
+        <div className="flex justify-center">
+          <h1>
+            Already have an account please
+            <span>
+              <a href="./login" className="btn btn-primary p-2 text-blue-900 hover:underline">Login</a>
+            </span>
+          </h1>
+        </div>
       </div>
 
       <section className="min-w-[40%]">
-        <q className="font3xl font-bold">Welcome to our blog app</q>
+        <q className="font-3xl font-bold">Welcome to our blog app</q>
       </section>
     </div>
   )

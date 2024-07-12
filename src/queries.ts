@@ -1,4 +1,5 @@
-import { gql } from "@apollo/client";
+import { gql }
+  from "@apollo/client";
 
 export const ME = gql`
  query {
@@ -27,7 +28,6 @@ export const ME = gql`
   }
  }
 `
-
 export const GET_POST = gql`
 query MyQuery($id: Int!) {
   postById(id: $id) {
@@ -42,23 +42,25 @@ query MyQuery($id: Int!) {
 `;
 
 export const GET_TOP_BLOGS = gql`
-  query {
-    allPosts {
-      id
-      title
-      publishDate
-      author {
-        user {
-          username
-        }   
-      }
-      tags {
-        name
+query {
+  allPosts {
+    title
+    subtitle
+    id
+    publishDate
+    author {
+      user {
+        firstName
+        username
+        lastName
       }
     }
+    tags {
+      name
+    }
+  }
   }
 `;
-
 
 export const GET_ALL_BLOGS = gql`
 query {
@@ -75,7 +77,6 @@ query {
   }
 }
 `;
-
 
 export const GET_BLOG_CATEGORIES = gql`
  query{

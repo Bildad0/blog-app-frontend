@@ -6,27 +6,27 @@ import { GET_TOP_BLOGS } from '../../queries';
 
 
 function TopBlogsList() {
+  console.log("query: ", GET_TOP_BLOGS)
   const { loading, error, data } = useQuery(GET_TOP_BLOGS);
   if (loading) return <p>Loading...</p>
   if (error) return <p>{error.message}</p>
 
-  return <ul role="list">
-    {data.allPosts.map((blog) => {
-      <li className="group/item hover:bg-slate-100 ...">
-        <img src={blog.id} alt="id" />
+  console.log("Error: ", error);
+
+  return data.allPosts.map((blog) => {
+    return <ul role="list" key={blog.id}>
+      <li className="group/item hover:bg-slate-100 rounded-md min-h-content ">
         <div>
-          <a href="{person.url}">{blog.title}</a>
-          <p>{blog.author.user.username}</p>
+          <a href={`/blog/${blog.id}`} className=''>{blog.title}</a>
+          <p className='font-bold text-xl'>{blog.author.user.username}</p>
           <p>{formatedDate(blog.publishDate)}</p>
         </div>
-        <a className="group/edit invisible hover:bg-slate-200 group-hover/item:visible ..." href={`/blog/${blog.id}`}>
-          <span className="group-hover/edit:text-gray-700 ...">read</span>
-          <svg className="group-hover/edit:translate-x-0.5 group-hover/edit:text-slate-500 ...">
-          </svg>
+        <a className="group/edit invisible hover:bg-slate-200 group-hover/item:visible rounded-full m-4 " href={`/blog/${blog.id}`}>
+          <span className="group-hover/edit:text-gray-700 p-4 ">read</span>
         </a>
       </li>
-    })}
-  </ul>
+    </ul>
+  })
 }
 
 export default TopBlogsList;
