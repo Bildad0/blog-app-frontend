@@ -15,12 +15,16 @@ query RelatedPosts($metaDescription: String!) {
 
 
 export const CREATE_USER = gql`
-mutation CreateUser($email: String!, $username: String!, $password: String!, ) {
-  createUser(email:$email, username: $username, password: $password ) {
+mutation MyMutation($email: String!, $password: String!, $username: String!) {
+  createUser(email: $email, password: $password, username: $username) {
     user {
-      id
-      username
+      dateJoined
       email
+      isActive
+      isStaff
+      isSuperuser
+      lastLogin
+      username
     }
   }
 }

@@ -1,8 +1,9 @@
+import { ToastContainer } from 'react-toastify'
 import Logo from '../assets/png/logo-no-background.png'
 
 const Header = () => {
     return (
-        <header className="bg-white shadow fixed min-w-[100%]">
+        <header className="bg-white shadow sticky top-0 min-w-[100%]">
             <div className="container mx-auto px-6 py-4">
                 <div className="flex items-center justify-between">
                     <div className="text-lg font-bold text-gray-700"><img src={Logo} alt='Logo' loading='lazy' width={250} /></div>
@@ -19,6 +20,17 @@ const Header = () => {
                     </nav>
                 </div>
             </div>
+            <ToastContainer
+                position="top-right"
+                autoClose={500}
+                hideProgressBar={true}
+                newestOnTop={false}
+                rtl={false}
+                pauseOnFocusLoss
+                pauseOnHover
+                theme="light"
+                icon={false}
+            />
         </header>
     )
 }

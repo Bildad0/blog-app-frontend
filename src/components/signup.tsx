@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client"
 import { useState } from "react";
 import { CREATE_USER } from "../mutations";
-
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [username, setUsername] = useState("")
@@ -10,6 +10,7 @@ function Register() {
 
 
   const [submitRegister] = useMutation(CREATE_USER)
+  const navigator = useNavigate();
 
   async function SubmitData() {
     if (!email) return <div>Email cannot be empty</div>
@@ -25,6 +26,8 @@ function Register() {
     console.log("user data: ", response.data);
 
     if (response.errors) return console.log(response.errors)
+    
+    navigator("/profile")
     return response.data;
   }
 

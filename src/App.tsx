@@ -8,27 +8,27 @@ import Footer from './components/footer';
 import Login from './components/login';
 import Error from './components/error';
 import Register from './components/signup';
-import { ToastContainer } from 'react-toastify';
 import { useState } from 'react';
 import Profile from './components/profile';
+import BlogCategories from './components/categories';
 
 
 function App() {
-const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null)
 
   return (
     <div>
-      <ToastContainer />
       <Router>
         <Header />
         <Routes>
-          <Route index  path="/" element={<HomePage />} />
+          <Route index path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
-          <Route path='/profile' element={<Profile user={user}/>} />
+          <Route path='/profile' element={<Profile user={user} />} />
           <Route path="/register" element={<Register />} />
+          <Route path='/categories' element={<BlogCategories />} />
           <Route path="/blog/:id" element={<PostDetail />} />
-          <Route path="*" element={<Error/>} />
+          <Route path="*" element={<Error />} />
         </Routes>
         <Footer />
       </Router>

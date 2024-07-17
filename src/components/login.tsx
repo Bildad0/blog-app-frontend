@@ -30,19 +30,19 @@ const Login = ({ setUser }) => {
                 navigate("/profile")
                 console.error("server error:", response.errors)
             }
-
             return navigate("/login")
         } catch (err) {
             console.error("error: ", err)
         }
-
-
-
     }
 
     return (
         <div className="sr-only sm:not-sr-only justify-center flex min-h-screen mt-4">
-            <form onSubmit={SubmitData} className="flex flex-col gap-4 max-w-[50%] min-w-[30%] min-h-[50%] bg-white p-3 rounded-md m-40">
+            <form
+                onSubmit={SubmitData}
+                className="flex flex-col gap-4 max-w-[50%] min-w-[30%] min-h-[50%] bg-white p-3 rounded-md m-40"
+                method="POST"
+            >
                 <label htmlFor="username">Username:</label>
                 <input
                     type="text"

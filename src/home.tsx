@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Aside from './components/aside';
 import DisplayBlogs from './components/blog/all_blogs';
-import BlogCategories from './components/categories';
 import { VERIFY_TOKEN } from './mutations';
 
 
@@ -12,19 +11,19 @@ const userToken = localStorage.getItem("token");
 const HomePage = () => {
   const [verifyToken] = useMutation(VERIFY_TOKEN);
   const navigate = useNavigate();
-  useEffect(() => {
 
-      verifyToken({ variables: { token: userToken } }).then((res) => {
-          console.log("token verified: ", res.data.payload);
-          
-      }).catch((err) => {
-          if (!userToken && err) {
-              navigate("/login")
-          } if (err)
-              navigate("/register")
-      });
+  // useEffect(() => {
+  //   verifyToken({ variables: { token: userToken } }).then((res) => {
+  //     console.log("token verified: ", res.data.payload);
 
-  }, [verifyToken, navigate])
+  //   }).catch((err) => {
+  //     if (!userToken && err) {
+  //       navigate("/login")
+  //     } if (err)
+  //       navigate("/register")
+  //   });
+
+  // }, [verifyToken, navigate])
   return (
     <div className='bg-gray-100 flex-row  items-center justify-center min-h-screen sr-only sm:not-sr-only'>
       {/* hero section */}
@@ -34,7 +33,6 @@ const HomePage = () => {
           <p className="mt-4 text-lg">Stay updated with the latest posts</p>
         </div>
       </section>
-      <BlogCategories />
       <div className='flex flex-row'>
         <Aside />
         <div className='m-4 p-6 '>

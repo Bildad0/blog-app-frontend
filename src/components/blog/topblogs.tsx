@@ -11,7 +11,8 @@ function TopBlogsList() {
   if (loading) return <p>Loading...</p>
   if (error) return <p>{error.message}</p>
 
-  console.log("Error: ", error);
+  console.error("Error: ", error);
+  console.log("data: ", data.allPosts);
 
   return data.allPosts.map((blog) => {
     return <ul role="list" key={blog.id}>
