@@ -1,4 +1,5 @@
 import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import Logo from '../assets/png/logo-no-background.png'
 
 const Header = () => {
@@ -22,9 +23,9 @@ const Header = () => {
             </div>
             <ToastContainer
                 position="top-right"
-                autoClose={500}
+                autoClose={5000}
                 hideProgressBar={true}
-                newestOnTop={false}
+                newestOnTop={true}
                 rtl={false}
                 pauseOnFocusLoss
                 pauseOnHover

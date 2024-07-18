@@ -40,21 +40,6 @@ mutation TokenAuth($password: String!, $username: String!) {
       username
       isStaff
       isSuperuser
-      profile {
-        bio
-        website
-        postSet {
-          dateCreated
-          publishDate
-          dateModified
-          title
-          subtitle
-          tags {
-            name
-          }
-          published
-        }
-      }
     }
     token
   }

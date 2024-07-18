@@ -2,41 +2,41 @@ import { useMutation } from "@apollo/client"
 import { useState } from "react";
 import { CREATE_USER } from "../mutations";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-function Register() {
+const Register = ({ setUser }) => {
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
+  const navigate = useNavigate();
 
-  const [submitRegister] = useMutation(CREATE_USER)
-  const navigator = useNavigate();
+  const [signup, { data, loading, error }] = useMutation(CREATE_USER, {
+    onCompleted: (data) => {
+      localStorage.setItem('auth-token', data.signup.token);
+    }
+  });
 
-  async function SubmitData() {
-    if (!email) return <div>Email cannot be empty</div>
-    if (!password) return <div>Password cannot be empty</div>
-    if (!username) return <div>Username cannot be empty</div>
-    const response = await submitRegister({
-      variables: {
-        username,
-        password,
-        email
+  const handleSubmit = (e: unknown) => {
+    e.preventDefault();
+    if (loading) return toast.info("Loading...");
+    signup({ variables: { username, email, password } }).then((res) => {
+      if (res.errors) {
+        navigate("/register");
+        toast.error(error.message)
+      } else {
+        setUser(data.user)
+        toast.info(`Welcome ${data.user.username}`)
+        navigate("/profile")
       }
-    })
-    console.log("user data: ", response.data);
-
-    if (response.errors) return console.log(response.errors)
-    
-    navigator("/profile")
-    return response.data;
-  }
-
-
-
+    });
+    if (error) return toast.error(error.message);
+  };
+  
   return (
     <div className="min-h-screen bg-gray-300 flex flex-row justify-between sr-only sm:not-sr-only ">
       <div className="bg-gradient-to-r from-cyan-500 to-blue-500 min-w-[50%] overscroll-contain justify-items-center">
-        <form onSubmit={SubmitData} className="m-8 flex flex-col gap-4 max-w-[40%] bg-white p-3 rounded-md m-[20%]">
+        <form onSubmit={handleSubmit} className="m-8 flex flex-col gap-4 max-w-[40%] bg-white p-3 rounded-md m-[20%]">
           <label htmlFor="email">Email:</label>
           <input
             type="email"

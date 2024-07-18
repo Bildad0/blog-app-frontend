@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Aside from './components/aside';
 import DisplayBlogs from './components/blog/all_blogs';
 import { VERIFY_TOKEN } from './mutations';
+import { toast } from 'react-toastify';
 
 
 const userToken = localStorage.getItem("token");
@@ -12,18 +13,21 @@ const HomePage = () => {
   const [verifyToken] = useMutation(VERIFY_TOKEN);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   verifyToken({ variables: { token: userToken } }).then((res) => {
-  //     console.log("token verified: ", res.data.payload);
+  useEffect(() => {
+    verifyToken({ variables: { token: userToken } }).then((res) => {
+      console.log("token verified: ", res.data.payload);
+      toast.success(`Welcome back ${res.data.payload.username}`)
+      navigate("/")
+    }).catch((err) => {
+      if (!userToken && err) {
+        toast.error(err.message)
+        navigate("/login")
+      } if (!userToken)
+        toast.error(err.message)
+      navigate("/register")
+    });
 
-  //   }).catch((err) => {
-  //     if (!userToken && err) {
-  //       navigate("/login")
-  //     } if (err)
-  //       navigate("/register")
-  //   });
-
-  // }, [verifyToken, navigate])
+  }, [verifyToken, navigate])
   return (
     <div className='bg-gray-100 flex-row  items-center justify-center min-h-screen sr-only sm:not-sr-only'>
       {/* hero section */}

@@ -24,8 +24,8 @@ function App() {
           <Route index path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
+          <Route path="/register" element={<Register setUser={setUser} />} />
           <Route path='/profile' element={<Profile user={user} />} />
-          <Route path="/register" element={<Register />} />
           <Route path='/categories' element={<BlogCategories />} />
           <Route path="/blog/:id" element={<PostDetail />} />
           <Route path="*" element={<Error />} />
